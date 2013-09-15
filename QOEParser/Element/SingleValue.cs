@@ -21,7 +21,7 @@ namespace QOEParser.Element
             return startingVal + (Length * 2);
         }
 
-        public override string GetValueOutput()
+        public override PairResult[] GetValueOutput()
         {
             throw new NotImplementedException();
         }

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QOEParser", "QOEParser\QOEP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QOEParserTest", "QOEParserTest\QOEParserTest.csproj", "{F1C93C97-20F9-4C88-93D9-074CDE6D1679}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QOEGui", "QOEGui\QOEGui.csproj", "{21477988-7D03-498C-B534-B82B58D4B750}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{F1C93C97-20F9-4C88-93D9-074CDE6D1679}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1C93C97-20F9-4C88-93D9-074CDE6D1679}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1C93C97-20F9-4C88-93D9-074CDE6D1679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21477988-7D03-498C-B534-B82B58D4B750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21477988-7D03-498C-B534-B82B58D4B750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21477988-7D03-498C-B534-B82B58D4B750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21477988-7D03-498C-B534-B82B58D4B750}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

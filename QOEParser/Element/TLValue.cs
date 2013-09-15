@@ -7,6 +7,10 @@ namespace QOEParser.Element
 {
     public class TLValue : ValueItem
     {
+        public const string TAG_TITLE = "Tag of ";
+        public const string LENGTH_TITLE = "Length of ";
+        public const string VALUE_TITLE = "Value of ";
+
         public string Tag { get; set; }
        
         public override bool ParseDefinition(System.Xml.Linq.XElement element)
@@ -30,9 +34,14 @@ namespace QOEParser.Element
             return startingVal + 4 + (Length*2);
         }
 
-        public override string GetValueOutput()
+        public override PairResult[] GetValueOutput()
         {
-            throw new NotImplementedException();
+            PairResult[] res = new PairResult[3];
+            res[0] = new PairResult() { Title = TAG_TITLE + this.Name, Value = Tag };
+            res[1] = new PairResult() { Title = LENGTH_TITLE + this.Name, Value = Length.ToString("X2")};
+            res[2] = new PairResult() { Title = VALUE_TITLE+ this.Name, Value = Value};
+
+            return res;
         }
     }
 }

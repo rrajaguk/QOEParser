@@ -59,6 +59,7 @@
     <Compile Include="ValueDefinitionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueInputTest.cs" />
+    <Compile Include="ValueResultTest.cs" />
     <Compile Include="XElementHelper.cs" />
   </ItemGroup>
   <ItemGroup>

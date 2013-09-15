@@ -37,6 +37,6 @@ namespace QOEParser.Element
             return parse(element);
         }
         public abstract int ParseValueInput(string val, int startingVal);
-        public abstract string GetValueOutput();
+        public abstract PairResult[] GetValueOutput();
     }
 }

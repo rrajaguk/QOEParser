@@ -28,5 +28,16 @@ namespace QOEParser
                 offset = item.ParseValueInput(inputs, offset);
             }
         }
+        public PairResult[] getValue(string inputs)
+        {
+            List<PairResult> result = new List<PairResult>();
+            int offset = 0;
+            foreach (var item in Vals)
+            {
+                offset = item.ParseValueInput(inputs, offset);
+                result.AddRange(item.GetValueOutput());
+            }
+            return result.ToArray();
+        }
     }
 }
