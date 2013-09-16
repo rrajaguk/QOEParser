@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QOEParser;
 using QOEParser.Element;
+using QOEParserTest.Helper;
 
 namespace QOEParserTest
 {
@@ -38,58 +39,11 @@ namespace QOEParserTest
             string testVal = "040222330902445533";
             composer.ParseValueInput(testVal);
 
-            List<PairResult> listOfExpected = new List<PairResult>();
-            // for value1
-
-            listOfExpected.Add(new PairResult()
-            {
-                Title = TLValue.TAG_TITLE + value1.Name,
-                Value = "04"
-            });
-
-            listOfExpected.Add(new PairResult()
-            {
-                Title = TLValue.LENGTH_TITLE + value1.Name,
-                Value = "02"
-            });
-
-            listOfExpected.Add(new PairResult()
-            {
-                Title = TLValue.VALUE_TITLE + value1.Name,
-                Value = "2233"
-            });
-
-            // for value2
-            listOfExpected.Add(new PairResult()
-            {
-                Title = TLValue.TAG_TITLE + value2.Name,
-                Value = "09"
-            });
-
-            listOfExpected.Add(new PairResult()
-            {
-                Title = TLValue.LENGTH_TITLE + value2.Name,
-                Value = "02"
-            });
-
-            listOfExpected.Add(new PairResult()
-            {
-                Title = TLValue.VALUE_TITLE + value2.Name,
-                Value = "4455"
-            });
-
-
-            PairResult[] expected = listOfExpected.ToArray();
+            PairResult[] expected = StaticValue.Get2PairResults(value1, value2);
             PairResult[] result = composer.getValue(testVal);
 
-            Assert.AreEqual(expected.Count(), result.Count());
 
-            for (int i = 0; i < expected.Count(); i++)
-            {
-                Assert.AreEqual(expected[i].Title, result[i].Title);
-                Assert.AreEqual(expected[i].Value, result[i].Value);
-                Assert.AreEqual(expected[i].Description, result[i].Description);
-            }
+            ComparisonHelper.Compare(expected, result);
             
             // for value2
             Assert.AreEqual("2233", value1.Value);

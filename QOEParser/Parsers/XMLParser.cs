@@ -13,6 +13,8 @@ namespace QOEParser.Parsers
         public ValueItem getItem(XElement element)
         {
             ValueItem result = null;
+            
+            // create the basic value
             switch (element.Name.ToString())
             {
                 case "SingleValue":
@@ -22,6 +24,10 @@ namespace QOEParser.Parsers
                     result = new TLValue();
                     break;
             }
+
+            //add the decorator
+
+
 
             if (result != null)
             {

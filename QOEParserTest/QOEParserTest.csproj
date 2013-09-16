@@ -55,6 +55,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Helper\ComparisonHelper.cs" />
+    <Compile Include="Helper\StaticValue.cs" />
     <Compile Include="ValueCompositionTest.cs" />
     <Compile Include="ValueDefinitionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

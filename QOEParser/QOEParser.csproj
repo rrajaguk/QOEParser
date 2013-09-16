@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composer.cs" />
+    <Compile Include="Element\Decorator\OptionType.cs" />
+    <Compile Include="Element\Decorator\ValueDescriptionDecorator.cs" />
     <Compile Include="Element\SingleValue.cs" />
     <Compile Include="Element\TLValue.cs" />
     <Compile Include="Element\ValueItem.cs" />
