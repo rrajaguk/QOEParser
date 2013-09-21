@@ -86,15 +86,15 @@ namespace QOEParserTest
             XE.Add(new XAttribute("Name", expected.Name));
             XE.Add(new XAttribute("Tag", expected.Tag));
             // adding of head element
-            XElement XSubElement = new XElement("SubElement");
+            XElement XSubElement = new XElement("NamedValue");
             XSubElement.Add(new XAttribute("Length", 1));
             XSubElement.Add(new XAttribute("Name", "Call ID"));
             XSubElement.Add(new XAttribute("Position", "1"));
             // adding of child head element
-            XElement option1 = new XElement("NumberOfOptions", "0C");
+            XElement option1 = new XElement("Options", "0C");
             option1.Add(new XAttribute("Name", "EVENT_EVENT_DOWNLOAD_MT_CALL"));
             XSubElement.Add(option1);
-            XElement option2 = new XElement("NumberOfOptions", "0D");
+            XElement option2 = new XElement("Options", "0D");
             option2.Add(new XAttribute("Name", "EVENT_EVENT_DOWNLOAD_CALL_CONNECTED"));
             XSubElement.Add(option2);
             //add to head

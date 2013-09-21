@@ -9,39 +9,41 @@ namespace QOEParser.Element.Decorator
     public class ValueDescriptionDecorator : TLValue
     {
         private TLValue basicClass;
-        private OptionType[] ArrayOfOptions;
+        private Dictionary<int, OptionContainer> ArrayOfOptions;
         public ValueDescriptionDecorator(TLValue tlvValue)
         {   
             basicClass = tlvValue;
             this.Length = tlvValue.Length;
             this.Tag = tlvValue.Tag;
             this.Value = tlvValue.Value;
-            this.ArrayOfOptions = ArrayOfOptions;
+            ArrayOfOptions = new Dictionary<int, OptionContainer>();
         }
         public override bool ParseDefinition(System.Xml.Linq.XElement element)
         {
-            bool result =   base.parse(element);
+            bool result =   base.ParseDefinition(element);
             
-            // parsing of the ArrayOfOptions
-            var subElement= element.Descendants("SubElement").First();
-            if (subElement != null)
+            // parsing of the namedValue
+            var ListOfNamedValues = element.Descendants("NamedValue");
+            foreach (var namedValueDefinition in ListOfNamedValues)
             {
-                var NumberOfOptions = subElement.Descendants("NumberOfOptions").Count();
-                if (NumberOfOptions > 0)
-                {
-                    ArrayOfOptions = new OptionType[NumberOfOptions];
-                    int counter = 0;
-                    foreach (var item in subElement.Descendants("NumberOfOptions"))
-                    {
-                        ArrayOfOptions[counter] = new OptionType()
-                        {
-                            Value = item.Value
+                //create the NamedValue container
+                int namedValuePosition = int.Parse(namedValueDefinition.Attribute("Position").Value);
+                OptionContainer opsContainer = new OptionContainer();
+                opsContainer.Name = namedValueDefinition.Attribute("Name").Value;
 
-                        };
-                        counter++;
-                    }
+
+                //fill up the created container
+                var listOfOptions = namedValueDefinition.Descendants("Options");
+                foreach (var option in listOfOptions)
+                {
+                    opsContainer.insertOption(option.Value, option.Attribute("Name").Value);
                 }
+
+                // add the container to array of options
+                ArrayOfOptions.Add(namedValuePosition, opsContainer);
+
             }
+           
 
             return result;
         }
@@ -51,20 +53,16 @@ namespace QOEParser.Element.Decorator
             res[0] = new PairResult() { Title = TAG_TITLE + this.Name, Value = Tag };
             res[1] = new PairResult() { Title = LENGTH_TITLE + this.Name, Value = Length.ToString("X2") };
 
-            int totLength = Length / 2;
-            for(int i =0 ;i <totLength  ;i++){
-                // traverse the ArrayOfOptions
-                int pointer = 0;
-                while (pointer < ArrayOfOptions.Length)
-                {
-                    if (Value.Substring(i * 2, 2) == ArrayOfOptions[i].Value)
-                    {
-                        res[2+i] = new PairResult() { Title = VALUE_TITLE + this.Name, Value = Value };
-                        break;
-                    }
-                    pointer++;
-                }
+            // fill up the array
+            for (int i = 0; i < Length; i++)
+            {
+                string val = Value.Substring(2 * i, 2);
+
+                OptionContainer currentOpsContainer = ArrayOfOptions[i + 1];
+                string description = currentOpsContainer.getDescription(val);
+                res[2+i] = new PairResult() { Title = currentOpsContainer.Name, Value = val, Description = description };
             }
+
             return res;
         }
     }

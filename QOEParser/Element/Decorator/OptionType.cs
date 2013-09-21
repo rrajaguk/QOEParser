@@ -5,9 +5,22 @@ using System.Text;
 
 namespace QOEParser.Element.Decorator
 {
-    public class OptionType
+    
+    public class OptionContainer
     {
+        private Dictionary<string, string> Options;
         public string Name { get; set; }
-        public string Value { get; set; }
+        public OptionContainer()
+        {
+            Options = new Dictionary<string, string>();
+        }
+        public void insertOption(string name, string value)
+        {
+            Options.Add(name, value);
+        }
+        public string getDescription(string value)
+        {
+            return Options[value];
+        }
     }
 }
