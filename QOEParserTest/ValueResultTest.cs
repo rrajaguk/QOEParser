@@ -10,20 +10,23 @@ using QOEParserTest.Helper;
 namespace QOEParserTest
 {
     [TestClass]
-    public class ValueResultTest
+    public class ComposerParserTest
     {
+        Composer composer;
+        TLValue value1;
+        TLValue value2;
 
-        [TestMethod]
-        public void Test_Value_1Round_OK()
+        [TestInitialize]
+        public void valInit()
         {
             // value in object
-            TLValue value1 = new TLValue();
+            value1 = new TLValue();
             value1.Name = "val 1";
             value1.Value = "0022";
             value1.Length = 2;
             value1.Tag = "04";
 
-            TLValue value2 = new TLValue();
+            value2 = new TLValue();
             value2.Name = "val 2";
             value2.Value = string.Empty;
             // purposely put wrong length 
@@ -31,29 +34,74 @@ namespace QOEParserTest
             value2.Tag = "09";
 
 
-            Composer composer = new Composer();
+            composer = new Composer();
             composer.Vals.Add(value1);
             composer.Vals.Add(value2);
-
-
-            string testVal = "040222330902445533";
-            composer.ParseValueInput(testVal);
-
-            PairResult[] expected = StaticValue.Get2PairResults(value1, value2);
-            PairResult[] result = composer.getValue(testVal);
-
-
-            ComparisonHelper.Compare(expected, result);
-            
-            // for value2
-            Assert.AreEqual("2233", value1.Value);
-            Assert.AreEqual("4455", value2.Value);
-            
         }
 
         [TestMethod]
-        public void Test_Value_2Round_OK()
+        public void Composer_1Sets_2TLValue_OK()
         {
+            string testVal = "0402223309024455";
+            composer.ParseValueInput(testVal);
+
+            PairResult[] expected = StaticValue.Get2PairResults(value1, value2);
+            int numberOfExpectedSets = 1;
+            int numberOfResultSets;
+            PairResult[] result = composer.getValue(testVal,out numberOfResultSets);
+
+            // exersize it!
+            Assert.AreEqual(numberOfExpectedSets, numberOfResultSets);
+            ComparisonHelper.Compare(expected, result);
+                        
+        }
+
+        [TestMethod]
+        public void Composer_1Sets_2TLValue_ExtraData()
+        {
+
+            string testVal = "0402223309024455" + "4455669988553366";
+            composer.ParseValueInput(testVal);
+
+            PairResult[] expected = StaticValue.Get2PairResults(value1, value2); 
+            int numberOfExpectedSets =1;
+            int numberOfResultSets;
+            PairResult[] result = composer.getValue(testVal,out numberOfResultSets);
+
+            // exersize it!
+            Assert.AreEqual(numberOfExpectedSets, numberOfResultSets);
+            ComparisonHelper.Compare(expected, result);            
+
+
+        }
+
+        [TestMethod]
+        public void Composer_2Sets_2TLValue_OK()
+        {
+            string testVal = "04022233090244550402223309024455";
+            composer.ParseValueInput(testVal);
+
+            PairResult[] expected = StaticValue.Get2PairResults(value1, value2, value1, value2); 
+            int numberOfExpectedSets = 2;
+            int numberOfResultSets;
+            PairResult[] result = composer.getValue(testVal,out numberOfResultSets);
+
+            // exersize it!
+            Assert.AreEqual(numberOfExpectedSets, numberOfResultSets);
+            ComparisonHelper.Compare(expected, result);
+           
+        }
+        [TestMethod]
+        public void Composer_2Sets_2TLValue_ExtraData()
+        {
+            string testVal = "04022233090244550402223309024455" + "112233665544222";
+            composer.ParseValueInput(testVal);
+
+            PairResult[] expected = StaticValue.Get2PairResults(value1, value2, value1, value2);
+            PairResult[] result = composer.getValue(testVal);
+
+            // exersize it!
+            ComparisonHelper.Compare(expected, result);
 
         }
     }
