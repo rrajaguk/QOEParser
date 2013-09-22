@@ -16,4 +16,39 @@
     </NamedValue>
   </TLValue>
   
-</Definition>
+  <TLValue Name="IMEI" Length="8" Tag="14"/>
+
+  <TLValue Name="Date Time Zone" Length="7" Tag="26"/>
+
+  <TLValue Name="Location Information" Length="9" Tag="13"/>
+
+  <TLValue Name="Access Technology" Length="1" Tag="3F">
+    <NamedValue Name="Value of Access Technology" Position="1" Length="1">
+      <Options Name="GSM">00</Options>
+      <Options Name="TIA/EIA-553">01</Options>
+      <Options Name="TIA/EIA-1369-C">02</Options>
+      <Options Name="UTRAN(3G)">03</Options>
+      <Options Name="TETRA">04</Options>
+      <Options Name="TIA/EIA-95">05</Options>
+      <Options Name="CDMA2000 1x(TIA/RIA/IS-2000)">06</Options>
+      <Options Name="CDMA2000 HRPD (TIA/EIA/IS-856)">07</Options>
+      <Options Name="E-UTRAN (4G)">08</Options>
+    </NamedValue>
+  </TLValue>
+  <TLValue Name="NRM" Length="1" Tag="16">
+    <NamedValue Name="UTRAN/EUTRAN Measurement Qualifier" Position="1" Length="1">
+      <Options Name="none">00</Options>
+      <Options Name="UTRAN Intra-frequency measurements">01</Options>
+      <Options Name="UTRAN Inter-frequency measurements">02</Options>
+      <Options Name="UTRAN Inter-RAT (GERAN) measurements">03</Options>
+      <Options Name="UTRAN Inter-RAT (R-UTRAN) measurements">04</Options>
+      <Options Name="TIA/EIA-95">05</Options>
+      <Options Name="CDMA2000 1x(TIA/RIA/IS-2000)">06</Options>
+      <Options Name="CDMA2000 HRPD(TIA/RIA/IS-2000)">07</Options>
+      <Options Name="E-UTRAN (4G)">08</Options>
+    </NamedValue>
+    <NamedValue Name="Result" Position="2" Length="1"/>
+    <NamedValue Name="Result - Additional Info" Position="3" Length="1"/>
+    <NamedValue Name="Value of NMR" Position="4" Length="16"/>
+  </TLValue>
+  </Definition>

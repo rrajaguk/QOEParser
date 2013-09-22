@@ -68,6 +68,7 @@ namespace QOEParser.Element.Decorator
             // fill up the array
             int counter = 0;
             int stringLength = 0;
+            //Length = Length / 2;
             while (counter < Length) { 
 
                 OptionContainer currentOpsContainer = ArrayOfOptions[counter + 1];

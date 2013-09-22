@@ -28,7 +28,7 @@ namespace QOEParser.Element
             {
                 return startingVal;
             }
-            Length = int.Parse(val.Substring(startingVal + 2, 2));
+            Length = int.Parse(val.Substring(startingVal + 2, 2), System.Globalization.NumberStyles.HexNumber);
             Value = val.Substring(startingVal + 4, Length * 2);
 
             return startingVal + 4 + (Length*2);

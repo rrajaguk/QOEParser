@@ -14,6 +14,7 @@ namespace QOEParser
         private XMLParser parser = new XMLParser();
         public void ParseValueDefinition(XElement xe)
         {
+            Vals.Clear();
             foreach (var item in xe.Elements())
             {
                 Vals.Add(parser.getItem(item));
