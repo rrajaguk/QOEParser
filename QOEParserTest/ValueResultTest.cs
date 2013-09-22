@@ -45,7 +45,7 @@ namespace QOEParserTest
             string testVal = "0402223309024455";
             composer.ParseValueInput(testVal);
 
-            PairResult[] expected = StaticValue.Get2PairResults(value1, value2);
+            PairResult[] expected = Get2PairResults(value1, value2);
             int numberOfExpectedSets = 1;
             int numberOfResultSets;
             PairResult[] result = composer.getValue(testVal,out numberOfResultSets);
@@ -63,7 +63,7 @@ namespace QOEParserTest
             string testVal = "0402223309024455" + "4455669988553366";
             composer.ParseValueInput(testVal);
 
-            PairResult[] expected = StaticValue.Get2PairResults(value1, value2); 
+            PairResult[] expected = Get2PairResults(value1, value2); 
             int numberOfExpectedSets =1;
             int numberOfResultSets;
             PairResult[] result = composer.getValue(testVal,out numberOfResultSets);
@@ -81,7 +81,7 @@ namespace QOEParserTest
             string testVal = "04022233090244550402223309024455";
             composer.ParseValueInput(testVal);
 
-            PairResult[] expected = StaticValue.Get2PairResults(value1, value2, value1, value2); 
+            PairResult[] expected = Get2PairResults(value1, value2, value1, value2); 
             int numberOfExpectedSets = 2;
             int numberOfResultSets;
             PairResult[] result = composer.getValue(testVal,out numberOfResultSets);
@@ -97,12 +97,40 @@ namespace QOEParserTest
             string testVal = "04022233090244550402223309024455" + "112233665544222";
             composer.ParseValueInput(testVal);
 
-            PairResult[] expected = StaticValue.Get2PairResults(value1, value2, value1, value2);
+            PairResult[] expected = Get2PairResults(value1, value2, value1, value2);
             PairResult[] result = composer.getValue(testVal);
 
             // exersize it!
             ComparisonHelper.Compare(expected, result);
 
+        }
+
+        public static PairResult[] Get2PairResults(params TLValue[] values)
+        {
+            List<PairResult> listOfExpected = new List<PairResult>();
+
+            foreach (var value in values)
+            {
+                // for value1
+                listOfExpected.Add(new PairResult()
+                {
+                    Title = TLValue.TAG_TITLE + value.Name,
+                    Value = value.Tag
+                });
+
+                listOfExpected.Add(new PairResult()
+                {
+                    Title = TLValue.LENGTH_TITLE + value.Name,
+                    Value = value.Length.ToString("X2")
+                });
+
+                listOfExpected.Add(new PairResult()
+                {
+                    Title = TLValue.VALUE_TITLE + value.Name,
+                    Value = value.Value
+                });
+            }
+            return listOfExpected.ToArray();
         }
     }
 }

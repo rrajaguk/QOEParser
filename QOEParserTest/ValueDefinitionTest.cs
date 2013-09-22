@@ -196,7 +196,67 @@ namespace QOEParserTest
             //validate the result
             ComparisonHelper.Compare(expPair, resPair);
 
+        }
 
+
+        [TestMethod]
+        public void NamedValue_AllNamed_Residue_OK()
+        {
+            string residueVal = "0B0B";
+            string residueDesc = "this is residue";
+
+            //TLV Object Creation
+            TLValue expected = new TLValue();
+            expected.Name = "ola testing ah";
+            expected.Value = "0C"+residueVal;
+            expected.Length = expected.Value.Length / 2;
+            expected.Tag = "0A";
+
+            // XML definition Creation
+            XElement XE = DefineXMLForTLValue_def_ok_residued(expected,residueDesc);
+
+            // set the expected result
+            PairResult[] expPair = DefineListExpectedforTLValue_def_ok_residued(expected,residueVal,residueDesc).ToArray();
+
+            TLValue res = (TLValue)xmlParser.getItem(XE);
+            PairResult[] resPair = res.GetValueOutput();
+
+            //validate the result
+            ComparisonHelper.Compare(expPair, resPair);
+
+
+        }
+
+        private XElement DefineXMLForTLValue_def_ok_residued(TLValue expected,string residueDesc)
+        {
+            XElement result = DefineXMLForTLValue_def_ok(expected);
+
+            XElement XResidueElement = new XElement("NamedValue");
+            XResidueElement.Add(new XAttribute("Length", "*"));
+            XResidueElement.Add(new XAttribute("Name", residueDesc));
+            XResidueElement.Add(new XAttribute("Position", "2"));
+            
+            //add the residue
+            result.Add(XResidueElement);
+
+
+            return result;
+        }
+
+        private List<PairResult> DefineListExpectedforTLValue_def_ok_residued(TLValue expected,string residueValue,string residueDesc)
+        {
+            List<PairResult> result = DefineListExpectedforTLValue_def_ok(expected);
+
+            // add the residue;
+            result.Add(new PairResult()
+            {
+                Title = residueDesc,
+                Value = residueValue
+            });
+
+            return result;
+
+                
         }
 
         private List<PairResult> DefineListExpectedforTLValue_mix_def_multi_ok(TLValue expected, int p)

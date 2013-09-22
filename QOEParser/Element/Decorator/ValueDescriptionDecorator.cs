@@ -30,8 +30,17 @@ namespace QOEParser.Element.Decorator
                 int namedValuePosition = int.Parse(namedValueDefinition.Attribute("Position").Value);
                 OptionContainer opsContainer = new OptionContainer();
                 opsContainer.Name = namedValueDefinition.Attribute("Name").Value;
-                opsContainer.Length = int.Parse(namedValueDefinition.Attribute("Length").Value);
+                
+                // check for the length, if its '*' then set the max int else parse it
+                if (namedValueDefinition.Attribute("Length").Value == "*")
+                {
+                    opsContainer.Length = int.MaxValue;
+                }
+                else
+                {
+                    opsContainer.Length = int.Parse(namedValueDefinition.Attribute("Length").Value);
 
+                }
                 //fill up the created container
                 var listOfOptions = namedValueDefinition.Descendants("Options");
                 foreach (var option in listOfOptions)
@@ -57,15 +66,25 @@ namespace QOEParser.Element.Decorator
 
             // fill up the array
             int counter = 0;
+            int stringLength = 0;
             while (counter < Length) { 
 
                 OptionContainer currentOpsContainer = ArrayOfOptions[counter + 1];
 
-                string val = Value.Substring(2 * counter, currentOpsContainer.Length *2);
+                // if the lenght set to max value then take all remaining value
+                if (currentOpsContainer.Length < int.MaxValue)
+                {
+                    stringLength = currentOpsContainer.Length ;
+                }
+                else
+                {
+                    stringLength =  (Length - counter) ;
+                }
+                string val = Value.Substring(2 * counter, stringLength * 2);
                 string description = currentOpsContainer.getDescription(val);
                 res.Add (new PairResult() { Title = currentOpsContainer.Name, Value = val, Description = description });
 
-                counter += currentOpsContainer.Length;
+                counter += stringLength;
             }
 
             return res.ToArray();
