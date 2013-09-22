@@ -9,10 +9,11 @@ namespace QOEParser.Element.Decorator
     public class ValueDescriptionDecorator : TLValue
     {
         private TLValue basicClass;
-        private Dictionary<int, OptionContainer> ArrayOfOptions;
+        public Dictionary<int, OptionContainer> ArrayOfOptions;
         public ValueDescriptionDecorator(TLValue tlvValue)
         {   
             basicClass = tlvValue;
+            this.Name = tlvValue.Name;
             this.Length = tlvValue.Length;
             this.Tag = tlvValue.Tag;
             this.Value = tlvValue.Value;
@@ -30,7 +31,7 @@ namespace QOEParser.Element.Decorator
                 int namedValuePosition = int.Parse(namedValueDefinition.Attribute("Position").Value);
                 OptionContainer opsContainer = new OptionContainer();
                 opsContainer.Name = namedValueDefinition.Attribute("Name").Value;
-                
+                opsContainer.Position = namedValuePosition;
                 // check for the length, if its '*' then set the max int else parse it
                 if (namedValueDefinition.Attribute("Length").Value == "*")
                 {
@@ -49,7 +50,7 @@ namespace QOEParser.Element.Decorator
                 }
 
                 // add the container to array of options
-                ArrayOfOptions.Add(namedValuePosition, opsContainer);
+                ArrayOfOptions.Add(opsContainer.Position, opsContainer);
 
             }
            

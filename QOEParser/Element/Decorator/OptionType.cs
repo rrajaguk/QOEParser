@@ -11,6 +11,7 @@ namespace QOEParser.Element.Decorator
         private Dictionary<string, string> Options;
         public string Name { get; set; }
         public int Length { get; set; }
+        public int Position { get; set; }
         public OptionContainer()
         {
             Options = new Dictionary<string, string>();
@@ -27,6 +28,10 @@ namespace QOEParser.Element.Decorator
             }
             
             return result;
+        }
+        public Dictionary<string, string> getOptions()
+        {
+            return Options;
         }
     }
 }

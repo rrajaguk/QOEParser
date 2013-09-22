@@ -262,7 +262,7 @@ namespace QOEParserTest
         private List<PairResult> DefineListExpectedforTLValue_mix_def_multi_ok(TLValue expected, int p)
         {
             List<PairResult> listOfExpected = new List<PairResult>();
-            // for value1
+            // for value_basicTLV_1
             listOfExpected.Add(new PairResult()
             {
                 Title = TLValue.TAG_TITLE + expected.Name,
@@ -322,7 +322,7 @@ namespace QOEParserTest
         private static List<PairResult> DefineListExpectedforTLValue_def_ok(TLValue expected)
         {
             List<PairResult> listOfExpected = new List<PairResult>();
-            // for value1
+            // for value_basicTLV_1
             listOfExpected.Add(new PairResult()
             {
                 Title = TLValue.TAG_TITLE + expected.Name,
@@ -371,7 +371,7 @@ namespace QOEParserTest
         private static List<PairResult> DefineListExpectedforTLValue_mix_def_ok(TLValue expected,int bytenumber)
         {
             List<PairResult> listOfExpected = new List<PairResult>();
-            // for value1
+            // for value_basicTLV_1
             listOfExpected.Add(new PairResult()
             {
                 Title = TLValue.TAG_TITLE + expected.Name,
@@ -438,7 +438,7 @@ namespace QOEParserTest
             return XE;
         }
 
-        private static string repeat(string p, int byteNumber)
+        public static string repeat(string p, int byteNumber)
         {
             StringBuilder SB = new StringBuilder();
             for (int i = 0; i < byteNumber; i++)
