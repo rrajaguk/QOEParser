@@ -22,11 +22,19 @@ namespace QOEGui
 
         private void button1_Click(object sender, EventArgs e)
         {
-            XElement definition = XElement.Load(Application.StartupPath + @"\QOE_Sample.xml");
-            composer.ParseValueDefinition(definition);
-            PairResult[] res = composer.getValue(ValueTextBox.Text);
-            dataGridView.DataSource = res;
+            try
+            {
+                XElement definition = XElement.Load(Application.StartupPath + @"\QOE_Sample.xml");
+                composer.ParseValueDefinition(definition);
+                PairResult[] res = composer.getValue(ValueTextBox.Text);
+                dataGridView.DataSource = res;
 
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
