@@ -75,7 +75,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="QOE_Sample.xml" />
+    <Content Include="QOE_Sample.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QOEParser\QOEParser.csproj">
+      <Project>{98c5c067-f8a9-4f89-9699-15677106f267}</Project>
+      <Name>QOEParser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

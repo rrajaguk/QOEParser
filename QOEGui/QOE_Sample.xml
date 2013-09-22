@@ -1,4 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Definition>
+  <TLValue Name="Call Details" Length="4" Tag="CD">
+    <NamedValue Name="Call ID" Position="1" Length="1"/>
+    <NamedValue Name="Event ID" Position="2" Length="1">
+      <Options Name="EVENT_EVENT_DOWNLOAD_MT_CALL">0C</Options>
+      <Options Name="EVENT_EVENT_DOWNLOAD_CALL_CONNECTED">0D</Options>
+      <Options Name="EVENT_EVENT_DOWNLOAD_CALL_DISCONNECTED">0E</Options>
+    </NamedValue>
+    <NamedValue Name="Cause" Position="3" Length="2">
+      <Options Name="Normal call clearing">0016</Options>
+      <Options Name="User busy">0017</Options>
+      <Options Name="No user responding">0018</Options>
+      <Options Name="User Alerting, no answer">0019</Options>
+      <Options Name="Call Rejected">0021</Options>
+    </NamedValue>
+  </TLValue>
   
 </Definition>
